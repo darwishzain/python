@@ -1,51 +1,71 @@
 from tkinter import *
 
-calc = Tk()
-calc.title("Calculator 1.0 (Beta)")
-operator=""
-text_Input =StringVar()
+class thisSystem:
+    def __init__(self,root):
+        self.root = root
+        self.root.title("Calculator")
+        self.root.geometry("320x260")
+        self.root.configure(background="black")
+        self.root.iconbitmap('./icon.ico')
 
-def btnClick (numbers) :
-    global operator
-    operator = operator + str(numbers)
-    text_Input.set(operator)
+        global operator
+        operator=""
+        text_Input=StringVar()
 
-def btnClear() :
-    global operator
-    operator = ""
-    text_Input.set("")
+        def btnClick(numbers) :
+            global operator
+            operator = operator + str(numbers)
+            text_Input.set(operator)
 
-def btnEqual() :
-    global operator
-    sumup = str(eval (operator))
-    text_Input.set(sumup)
-    operator = ""
+        def btnClear() :
+            global operator
+            operator=""
+            text_Input.set("")
+
+        def btnEqual() :
+            global operator
+            sumup = str(eval (operator))
+            text_Input.set(sumup)
+            operator=""
 
 
-txtDisplay = Entry(calc,font=('arial',20,'bold'), textvariable=text_Input, bd=20, insertwidth=4, bg="powder blue", justify='right').grid(columnspan=4)
+        mainFrame = Frame(self.root, bd=1, width=256, height=380,bg="white", relief = RIDGE)
+        mainFrame.grid()
+        txtDisplay = Entry(mainFrame,textvariable=text_Input, bd=1, width=45, bg="powder blue", justify='right', insertwidth=4)
+        txtDisplay.grid(columnspan=4)
 
-##Number Buttons
-btn7 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="7", command=lambda:btnClick(7)).grid(row=1,column=0)
-btn8 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="8", command=lambda:btnClick(8) ).grid(row=1,column=1)
-btn9 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="9", command=lambda:btnClick(9) ).grid(row=1,column=2)
-btn4 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="4", command=lambda:btnClick(4) ).grid(row=2,column=0)
-btn5 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="5", command=lambda:btnClick(5) ).grid(row=2,column=1)
-btn6 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="6", command=lambda:btnClick(6) ).grid(row=2,column=2)
-btn3 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="1", command=lambda:btnClick(1) ).grid(row=3,column=0)
-btn2 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="2", command=lambda:btnClick(2) ).grid(row=3,column=1)
-btn1 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="3", command=lambda:btnClick(3) ).grid(row=3,column=2)
-btn0 = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="0", command=lambda:btnClick(0) ).grid(row=4,column=0)
+        ############Numbers############
+        ###Row1
+        btn7 = Button(mainFrame, padx=32, pady=16, fg='black', text="7", command=lambda: btnClick(7)).grid(row=1, column=0)
+        btn8 = Button(mainFrame, padx=32, pady=16, fg='black', text="8", command=lambda: btnClick(8)).grid(row=1, column=1)
+        btn9 = Button(mainFrame, padx=32, pady=16, fg='black', text="9", command=lambda: btnClick(9)).grid(row=1, column=2)
+        ###Row2
+        btn4 = Button(mainFrame, padx=32, pady=16, fg='black', text="4", command=lambda: btnClick(4)).grid(row=2, column=0)
+        btn5 = Button(mainFrame, padx=32, pady=16, fg='black', text="5", command=lambda: btnClick(5)).grid(row=2, column=1)
+        btn6 = Button(mainFrame, padx=32, pady=16, fg='black', text="6", command=lambda: btnClick(6)).grid(row=2, column=2)
+        ###Row3
+        btn1 = Button(mainFrame, padx=32, pady=16, fg='black', text="1", command=lambda: btnClick(1)).grid(row=3, column=0)
+        btn2 = Button(mainFrame, padx=32, pady=16, fg='black', text="2", command=lambda: btnClick(2)).grid(row=3, column=1)
+        btn3 = Button(mainFrame, padx=32, pady=16, fg='black', text="3", command=lambda: btnClick(3)).grid(row=3, column=2)
+        ###Row4
+        btn0 = Button(mainFrame, padx=32, pady=16, fg='black', text="0", command=lambda: btnClick(0)).grid(row=4, column=0)
 
-equal = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="=", command=btnEqual).grid(row=4, column=1)
-clear = Button (calc, padx=16, bd=8, fg="black", font = ('arial', 20, 'bold'), text="C", command=btnClear).grid(row=4, column=2)
+        ############Calc############
+        btnMul = Button(mainFrame, padx=32, pady=16,fg='black', text="*", command=lambda: btnClick("*")).grid(row=1, column=3)
+        btnAdd = Button(mainFrame, padx=32, pady=16,fg='black', text="+", command=lambda: btnClick("+")).grid(row=2, column=3)
+        btnMin = Button(mainFrame, padx=32, pady=16,fg='black', text="-", command=lambda: btnClick("-")).grid(row=3, column=3)
+        btnDiv = Button(mainFrame, padx=32, pady=16,fg='black', text="/", command=lambda: btnClick("/")).grid(row=4, column=3)
 
-##Arithmetic Function
-multiply = Button (calc, padx=16, bd=8, fg="white", bg="black", font = ('arial', 20, 'bold'), text="*", command=lambda:btnClick("*")).grid(row=1, column=3)
-divide =   Button (calc, padx=16, bd=8, fg="white", bg="black", font = ('arial', 20, 'bold'), text="/", command=lambda:btnClick("/")).grid(row=2, column=3)
-plus =     Button (calc, padx=16, bd=8, fg="white", bg="black", font = ('arial', 20, 'bold'), text="+", command=lambda:btnClick("+")).grid(row=3, column=3)
-minus =    Button (calc, padx=16, bd=8, fg="white", bg="black", font = ('arial', 20, 'bold'), text="-", command=lambda:btnClick("-")).grid(row=4, column=3)
+        ############Opt############
+        btnEql = Button(mainFrame, padx=32, pady=16, fg='black', text="=", command=btnEqual).grid(row=4, column=1)
+        btnClr = Button(mainFrame, padx=32, pady=16, fg='black', text="C", command=btnClear).grid(row=4, column=2)
 
-##Copyright
-myLabel = Label (calc, text="Copyright Reserved Darwish Zain Studio 2020", font=('arial', 10, 'bold')).grid(columnspan=4)
+        Label(mainFrame, text="2020 Copyright Reserved. Darwish Zain Studio").grid(columnspan=4)
 
-calc.mainloop()
+
+
+
+if __name__ == '__main__':
+    root=Tk()
+    application=thisSystem(root)
+    root.mainloop()
